@@ -1,0 +1,1 @@
+This folder contains a collection of tools and programs created with the express purpose of aiding in the completion of the WhichBatman project. Programs may be written by various individual or collective authors, and are to be used freely in the pursuit of the succesful completion of the goals of the University of Maine's Computing Club.
