@@ -78,9 +78,12 @@ def update_title_index_map_with_existing_files(output_folder_filepath, title_ind
         # For each file found, lookup the title in the title-index map,
         # initialize at 0 if not found and increment the index if found
         curr_index = 0
+        tak_bool = False
         for char in filename:
-            if char == '-':
+            if char == '-' and tak_bool:
                 break
+            elif char == '-' and not tak_bool:
+                tak_bool = True
             curr_index += 1
         movie_title = filename[:curr_index]
         increment_title_in_index_map(title_index_map, movie_title)
@@ -99,10 +102,11 @@ def create_txt_output(filename, output_folder_filepath, url):
 # This function processes the incoming movie title to generate
 # the final format for the label an incoming file will receive
 # (as laid out in the planning doc)
-def generate_output_filename(title_index_map, movie_title):
+def generate_output_filename(title_index_map, movie_title, actor):
     movie_title = movie_title.replace(' ', '_')
+    actor = actor.replace(' ', '_')
     increment_title_in_index_map(title_index_map, movie_title)
-    return movie_title + "-" + str(title_index_map[movie_title] + 1)
+    return actor + "-" + movie_title + "-" + str(title_index_map[movie_title] + 1)
 
 
 # This function takes in a function, create_output, and uses that to generate output files by parsing the input file
@@ -110,18 +114,20 @@ def generate_output_filename(title_index_map, movie_title):
 def generate_output_from_input_file(title_index_map, input_filepath, output_folder_filepath, create_output):
     with open(input_filepath) as input_file:
         curr_movie_title = ""
+        curr_actor = ""
         while input_file:
             curr_line = input_file.readline()
             if curr_line == "":
                 break
 
-            if curr_line[0] == 'T':
+            if curr_line[0] == 'A':
+                curr_actor = curr_line[7:-1]
+            elif curr_line[0] == 'T':
                 curr_movie_title = curr_line[7:-1]
                 continue
             elif curr_line[0] == 'U':
-                url = curr_line[5:]
-                output_filename = generate_output_filename(title_index_map, curr_movie_title)
-                print(output_filename)
+                url = curr_line[5:-1]
+                output_filename = generate_output_filename(title_index_map, curr_movie_title, curr_actor)
                 create_output(output_filename, output_folder_filepath, url)
                 continue
             elif curr_line[0] == '\n':
