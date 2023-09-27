@@ -10,6 +10,7 @@ def main():
     title_index_map = {}
 
     update_title_index_map_with_existing_files(args.output, title_index_map)
+    generate_output_from_input_file(title_index_map, args.input, args.output, create_txt_output)
 
     exit()
 
@@ -57,8 +58,20 @@ def check_output_folder_exists(output_filepath):
                 continue
     return
 
+
+# This will check the title_index map to see if a movie title currently exists,
+# and will either add it if it doesn't or increment it if it does
+def increment_title_in_index_map(title_index_map, movie_title):
+    if movie_title in title_index_map:
+        title_index_map[movie_title] = title_index_map[movie_title] + 1
+    else:
+        title_index_map.update({movie_title: 0})
+    return
+
+
 # This function iterates through the given output folder and updates the title_index_map with the found occurrences of
 # each movie title which currently exists at runtime
+# WARNING: assumes that all files in the output folder follow the naming scheme laid out in the planning document
 def update_title_index_map_with_existing_files(output_folder_filepath, title_index_map):
     # Iterate through all files in output folder
     for filename in os.listdir(output_folder_filepath):
@@ -70,10 +83,49 @@ def update_title_index_map_with_existing_files(output_folder_filepath, title_ind
                 break
             curr_index += 1
         movie_title = filename[:curr_index]
-        if movie_title in title_index_map:
-            title_index_map[movie_title] = title_index_map[movie_title] + 1
-        else:
-            title_index_map.update({movie_title: 0})
+        increment_title_in_index_map(title_index_map, movie_title)
+    return
+
+
+# This is a dummy function which creates txt files, used in the testing of generate_output_from_input_file
+def create_txt_output(filename, output_folder_filepath, url):
+    filename_with_ext = filename + ".txt"
+    final_path = output_folder_filepath + '\\' + filename_with_ext
+    temp_file_handle = open(final_path, "w")
+    temp_file_handle.close()
+    return
+
+
+# This function processes the incoming movie title to generate
+# the final format for the label an incoming file will receive
+# (as laid out in the planning doc)
+def generate_output_filename(title_index_map, movie_title):
+    movie_title = movie_title.replace(' ', '_')
+    increment_title_in_index_map(title_index_map, movie_title)
+    return movie_title + "-" + str(title_index_map[movie_title] + 1)
+
+
+# This function takes in a function, create_output, and uses that to generate output files by parsing the input file
+# WARNING: Assumes input file is of the correct format, as laid out in the planning doc
+def generate_output_from_input_file(title_index_map, input_filepath, output_folder_filepath, create_output):
+    with open(input_filepath) as input_file:
+        curr_movie_title = ""
+        while input_file:
+            curr_line = input_file.readline()
+            if curr_line == "":
+                break
+
+            if curr_line[0] == 'T':
+                curr_movie_title = curr_line[7:-1]
+                continue
+            elif curr_line[0] == 'U':
+                url = curr_line[5:]
+                output_filename = generate_output_filename(title_index_map, curr_movie_title)
+                print(output_filename)
+                create_output(output_filename, output_folder_filepath, url)
+                continue
+            elif curr_line[0] == '\n':
+                continue
     return
 
 
