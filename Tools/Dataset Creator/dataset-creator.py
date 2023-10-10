@@ -1,6 +1,8 @@
 import argparse
 import os
 
+from pytube import YouTube
+
 
 def main():
     args = get_args_from_cmd_line()
@@ -10,14 +12,14 @@ def main():
     title_index_map = {}
 
     update_title_index_map_with_existing_files(args.output, title_index_map)
-    generate_output_from_input_file(title_index_map, args.input, args.output, create_txt_output)
+    generate_output_from_input_file(title_index_map, args.input, args.output, download_videos_from_url)
 
     exit()
 
 
 # This takes in command line arguments and passes them out as an object, args can be accessed by name i.e. args.input
 def get_args_from_cmd_line():
-    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser = argparse.ArgumentParser(description='If you see this something broke')
     parser.add_argument('-i', '--input', action='store', type=str,
                         help='The input file to get URL\'s from')
     parser.add_argument('-o', '--output', action='store', type=str,
@@ -29,6 +31,9 @@ def get_args_from_cmd_line():
 # This function checks for the existence of the input file, and terminates the program if it cannot be found
 # WARNING THIS ASSUMES CORRECT INPUT FILE FORMAT AND DOES NO CHECKING
 def check_input_file_exists(input_filepath):
+    if input_filepath == None:
+        print("No input provided, terminating.")
+        exit()
     input_file_extension = input_filepath[-4:]
     if input_file_extension != ".txt":
         print("The input file is not a .txt file, terminating.")
@@ -90,6 +95,16 @@ def update_title_index_map_with_existing_files(output_folder_filepath, title_ind
     return
 
 
+# This function processes the incoming movie title to generate
+# the final format for the label an incoming file will receive
+# (as laid out in the planning doc)
+def generate_output_filename(title_index_map, movie_title, actor):
+    actor = actor.replace(' ', '_')
+    if movie_title not in title_index_map:
+        title_index_map.update({movie_title: 0})
+    return actor + "-" + movie_title + "-" + str(title_index_map[movie_title] + 1)
+
+
 # This is a dummy function which creates txt files, used in the testing of generate_output_from_input_file
 def create_txt_output(filename, output_folder_filepath, url):
     filename_with_ext = filename + ".txt"
@@ -99,14 +114,26 @@ def create_txt_output(filename, output_folder_filepath, url):
     return
 
 
-# This function processes the incoming movie title to generate
-# the final format for the label an incoming file will receive
-# (as laid out in the planning doc)
-def generate_output_filename(title_index_map, movie_title, actor):
-    movie_title = movie_title.replace(' ', '_')
-    actor = actor.replace(' ', '_')
-    increment_title_in_index_map(title_index_map, movie_title)
-    return actor + "-" + movie_title + "-" + str(title_index_map[movie_title] + 1)
+def download_videos_from_url(output_folder_filepath, url, new_filename):
+    try:
+        yt = YouTube(url)
+        download_stream = yt.streams.get_highest_resolution()
+        new_filename_with_ext = new_filename + ".mp4"
+        download_stream.download(output_path=output_folder_filepath, filename=new_filename_with_ext)
+        print("\"" + yt.title + "\"" + " downloaded successfully")
+
+        download_local_path = output_folder_filepath + "\\" + yt.title + ".mp4"
+        return download_local_path
+
+    except Exception as e:
+        error_str = str(e)
+        if "age" in error_str:
+            print(e)
+        elif "find" in error_str:
+            print(url + " could not be found.")
+        else:
+            print(e)
+    return None
 
 
 # This function takes in a function, create_output, and uses that to generate output files by parsing the input file
@@ -115,8 +142,10 @@ def generate_output_from_input_file(title_index_map, input_filepath, output_fold
     with open(input_filepath) as input_file:
         curr_movie_title = ""
         curr_actor = ""
+        line_num = 0
         while input_file:
             curr_line = input_file.readline()
+            line_num += 1
             if curr_line == "":
                 break
 
@@ -124,14 +153,23 @@ def generate_output_from_input_file(title_index_map, input_filepath, output_fold
                 curr_actor = curr_line[7:-1]
             elif curr_line[0] == 'T':
                 curr_movie_title = curr_line[7:-1]
-                continue
             elif curr_line[0] == 'U':
-                url = curr_line[5:-1]
-                output_filename = generate_output_filename(title_index_map, curr_movie_title, curr_actor)
-                create_output(output_filename, output_folder_filepath, url)
-                continue
+                if curr_line[-1] == '\n':
+                    url = curr_line[5:-1]
+                else:
+                    url = curr_line[5:]
+
+                curr_movie_title = curr_movie_title.replace(' ', '_')
+                new_filename = generate_output_filename(title_index_map, curr_movie_title, curr_actor)
+                download_filepath = create_output(output_folder_filepath, url, new_filename)
+                if download_filepath is not None:
+                    increment_title_in_index_map(title_index_map, curr_movie_title)
+
             elif curr_line[0] == '\n':
                 continue
+            else:
+                print("line " + str(line_num) + " in input file; \"" +
+                      curr_line + "\"" + " is not in a valid format, skipping")
     return
 
 
