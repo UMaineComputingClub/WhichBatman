@@ -1,0 +1,61 @@
+ACTOR: Adam West
+
+TITLE: Batman 1966
+URL: https://www.youtube.com/watch?v=Nri3o0KFg-8
+URL: https://www.youtube.com/watch?v=RsYA8Gr5NTY
+URL: https://www.youtube.com/watch?v=9TEtJu5VPVU
+URL: https://www.youtube.com/watch?v=f9QhOmvntHY
+URL: https://www.youtube.com/watch?v=aM6FbnoJAWk
+
+ACTOR: Micheal Keaton
+
+TITLE: Batman 1989
+URL: https://www.youtube.com/watch?v=gvDPqvOYz7c
+URL: https://www.youtube.com/watch?v=k4zrv7HPu9M&list=PLZbXA4lyCtqoNJQPR_EcDAgEh_YUogji4&index=5
+URL: https://www.youtube.com/watch?v=H2jne7LIovE&list=PLZbXA4lyCtqoNJQPR_EcDAgEh_YUogji4&index=4
+
+TITLE: Batman Returns
+URL: https://www.youtube.com/watch?v=kWrOmEtXk0k&list=PLZbXA4lyCtqrXKaFGn4Sdv5-X2EPT9L3H&index=5
+URL: https://www.youtube.com/watch?v=c4ux2NclHoE&list=PLZbXA4lyCtqrXKaFGn4Sdv5-X2EPT9L3H&index=8
+URL: https://www.youtube.com/watch?v=eIo_S0aHyfI&list=PLZbXA4lyCtqrXKaFGn4Sdv5-X2EPT9L3H&index=6
+
+ACTOR: George Clooney
+
+TITLE: Batman And Robin
+URL: https://www.youtube.com/watch?v=MGJlq-gjQj8&list=PLZbXA4lyCtqqpkIeyXCDIz86AI2zBSAIg&index=7
+URL: https://www.youtube.com/watch?v=k6dRH6fO3Xw&list=PLZbXA4lyCtqqpkIeyXCDIz86AI2zBSAIg&index=9
+URL: https://www.youtube.com/watch?v=OE7aSKZDjTo&list=PLZbXA4lyCtqqpkIeyXCDIz86AI2zBSAIg&index=10
+URL: https://www.youtube.com/watch?v=gnallHWgupY&list=PLZbXA4lyCtqqpkIeyXCDIz86AI2zBSAIg&index=4
+URL: https://www.youtube.com/watch?v=xSJaxpJHf-s&list=PLZbXA4lyCtqqpkIeyXCDIz86AI2zBSAIg&index=2
+
+ACTOR: Christian Bale
+
+TITLE: Batman Begins
+URL: https://www.youtube.com/watch?v=adeemIgqvhs&list=PLqYoiTryxh2OLn8C6VCbzNibxKkziIm4E&index=15
+URL: https://www.youtube.com/watch?v=8K9qObxypYc&list=PLqYoiTryxh2OLn8C6VCbzNibxKkziIm4E&index=19
+URL: https://www.youtube.com/watch?v=SCd8zsm4jpg&list=PLqYoiTryxh2OLn8C6VCbzNibxKkziIm4E&index=21
+
+TITLE: The Dark Knight Rises
+URL: https://www.youtube.com/watch?v=LbPh93cMeJU&list=PLqYoiTryxh2ON7Q6TyXeamoieROMlqEsU&index=10
+URL: https://www.youtube.com/watch?v=mhUL6CJzTeY&list=PLqYoiTryxh2ON7Q6TyXeamoieROMlqEsU&index=14
+URL: https://www.youtube.com/watch?v=y2fdpngTEm8&list=PLqYoiTryxh2ON7Q6TyXeamoieROMlqEsU&index=28
+
+ACTOR: Ben Affleck
+
+TITLE: Batman V Superman
+URL: https://www.youtube.com/watch?v=rRlfzy7Rxdo&list=PLZbXA4lyCtqpd2kM-cPqD6gqQQo_VoM-W&index=7
+URL: https://www.youtube.com/watch?v=4JE04So6OqU&list=PLZbXA4lyCtqpd2kM-cPqD6gqQQo_VoM-W&index=9
+URL: https://www.youtube.com/watch?v=i5dTE5dgWOw&list=PLZbXA4lyCtqpd2kM-cPqD6gqQQo_VoM-W&index=2
+
+TITLE: Justice League
+URL: https://www.youtube.com/watch?v=VrG4DQaSz6U
+URL: https://www.youtube.com/watch?v=9NKoBAoz3SQ
+
+ACTOR: Robert Pattinson
+
+TITLE: The Batman
+URL: https://www.youtube.com/watch?v=GGZdoD7gYnE
+URL: https://www.youtube.com/watch?v=dg_r4dFnlu0
+URL: https://www.youtube.com/watch?v=PfrMDVueQBI
+URL: https://www.youtube.com/watch?v=--GijHXJgXA
+URL: https://www.youtube.com/watch?v=sow5pUR4RVc
