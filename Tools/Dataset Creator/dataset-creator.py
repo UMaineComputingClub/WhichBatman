@@ -116,7 +116,7 @@ def create_txt_output(filename, output_folder_filepath, url):
 
 def download_videos_from_url(output_folder_filepath, url, new_filename):
     try:
-        yt = YouTube(url)
+        yt = YouTube(url, use_oauth=True)
         download_stream = yt.streams.get_highest_resolution()
         new_filename_with_ext = new_filename + ".mp4"
         download_stream.download(output_path=output_folder_filepath, filename=new_filename_with_ext)
