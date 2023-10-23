@@ -3,6 +3,20 @@ import os
 import random
 
 def extract_frames(vid_file, dirpath, n):
+    """
+    Args:
+        vid_file: path of mp4 video file  (String)
+        dirpath: path of images output (String)
+        n: the number of frames genorated
+    Shape:
+        Input: (vid_file, dirpath, n).
+        Output: stores n number of random frames from vid_file to the dirpath
+        frames are named "frame_#" # meaning which frame out of n it is starting at 0
+        lastly prints "All frames extracted" when it is finished.
+    Example:
+        Input: extract_frames("C:\TestFolder\BatmanScene.mp4","C:\TestFolder\FramesFolder", 10)
+        Output: 10 random frames from "BatmanScene" will be saved to "FramesFolder"
+    """
     #Creates a directory if it does not exist at dirpath
     if not os.path.exists(dirpath):
         os.makedirs(dirpath)
